@@ -1,29 +1,18 @@
+// // app.js
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const app = express();
+const userRoutes = require('./routes/userRoutes');
 
-// Middleware to parse incoming request bodies
+// Other app configurations
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Endpoint to handle user registration
-app.post('/register', (req, res) => {
-  const { name, email, password } = req.body; // Assuming registration data is sent in the request body
-
-  // Handle the registration logic here (e.g., store data in the database)
-  // For demonstration, let's log the received data
-  console.log('Received registration data:');
-  console.log('Name:', name);
-  console.log('Email:', email);
-  console.log('Password:', password);
-
-  // Send a response back to the client
-  res.status(200).json({ message: 'Registration successful' });
-});
+// Define user routes
+app.use('/user', userRoutes);
 
 // Start the server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
