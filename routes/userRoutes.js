@@ -7,6 +7,8 @@ const userController = require('../controllers/userController');
 // Route to handle POST requests for user registration
 router.post('/register', userController.registerUser);
 
+router.post('/checkUserRegistration', userController.checkUserRegistration)
+
 // Route to handle GET requests for user registration (if needed)
 router.get('/register', (req, res) => {
   // Handle GET request logic here if required
