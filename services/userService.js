@@ -33,3 +33,23 @@ exports.checkUserRegistration = async (userData) => {
     throw new Error('Error checking user registration');
   }
 };
+
+// Assuming you have a 'User' model imported and used here
+
+exports.bookAppointment = async (appointmentData) => {
+  try {
+    // Perform the logic to book an appointment using the appointment data received
+    // Here, 'appointmentData' contains details like name, email, selectedService, etc.
+
+    // For instance, you might have a User model method to book an appointment
+    const appointmentResult = await User.bookAppointment(appointmentData);
+
+    // Assuming 'bookAppointment' method returns a boolean or an appropriate result
+
+    return appointmentResult; // Return the result of the appointment booking
+  } catch (error) {
+    logger.error(`Error booking appointment: ${error}`);
+    throw new Error('Error booking appointment');
+  }
+};
+
