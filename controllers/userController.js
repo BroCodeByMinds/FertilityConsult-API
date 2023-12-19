@@ -15,7 +15,7 @@ const generateToken = (user) => {
 exports.registerUser = async (req, res) => {
   logger.info(`Received data from application for registering user: ${JSON.stringify(req.body)}`);
 
-  const { name, email, password } = req.body; // Assuming data is sent in the request body
+  const { name, email, password } = req.body;
 
   try {
     // Call userService to register user
@@ -36,7 +36,7 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.checkUserRegistration = async (req, res) => {
-  console.log(req.body);
+  logger.info(`Received data from application for verification of user: ${JSON.stringify(req.body)}`);
 
   const { email, password } = req.body;
 
@@ -72,3 +72,27 @@ exports.checkUserRegistration = async (req, res) => {
   }
 };
 
+exports.bookAppointment = async (req, res) => {
+  logger.info(`Received data from application to book appointment: ${JSON.stringify(req.body)}`);
+
+  const { name, email, token, selectedService } = req.body;
+
+  try {
+    // Call the userService to book the appointment
+    const appointmentResult = await userService.bookAppointment({ name, email, selectedService });
+
+    // Check if the appointment booking was successful
+    if (appointmentResult) {
+      logger.info(`Appointment booked successfully`);
+
+      // Respond with a success message or relevant data
+      res.status(200).json({ message: 'Appointment booked successfully' });
+    } else {
+      // Handle failed appointment booking
+      res.status(400).json({ message: 'Failed to book appointment' });
+    }
+  } catch (error) {
+    // Handle error while booking appointment
+    res.status(500).json({ message: 'Error booking appointment', error: error.message });
+  }
+};
